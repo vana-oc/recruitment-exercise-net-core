@@ -28,7 +28,7 @@ namespace Oceans.WebApplication
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            //TODO: Register services
+            services.AddScoped<ExeriseService, ExeriseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

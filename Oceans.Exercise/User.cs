@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Oceans.Exercise
@@ -37,7 +38,8 @@ namespace Oceans.Exercise
             get
             {
                 //Use LINQ to get the right number
-                return Subscriptions.Select(_ => 0).FirstOrDefault();
+                var today = DateTime.Now;
+                return Subscriptions.Where(x => x.ExpirationMonth <= today.Month && x.ExpirationYear <= today.Year).Count();
             }
         }
 
@@ -48,7 +50,7 @@ namespace Oceans.Exercise
         {
             const string strForExercise = "1";
 
-            if (int.TryParse(strForExercise, out int myOutputVariable))
+            if (int.TryParse(strForExercise, out var _))
             {
                 Name = "Oceans Code Experts";
             }
@@ -57,9 +59,10 @@ namespace Oceans.Exercise
         /// <summary>
         /// Rewrite this method to return a tuple of Name, PaymentType and the local variable
         /// </summary>
-        public void UserInformation()
+        public (string Name, PaymentType PaymentType, bool codeExperts) UserInformation()
         {
             bool codeExperts = true;
+            return (Name, PaymentType, codeExperts);
         }
 
         /// <summary>
@@ -68,8 +71,8 @@ namespace Oceans.Exercise
         /// </summary>
         public void UpdateUserInformation()
         {
-            string nameFromTuple = string.Empty;
-            bool codeExpertsFromTuple = false;
+            (string nameFromTuple, _, bool codeExpertsFromTuple) = UserInformation();
+            //bool codeExpertsFromTuple = false;
 
             //deconstruct the tuple
             UserInformation();
